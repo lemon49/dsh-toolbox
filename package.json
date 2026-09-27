@@ -1,13 +1,11 @@
 {
   "name": "dsh-toolbox",
-  "version": "1.2.0",
-  "description": "DSH 工具箱：一键热重启 dsh 服务 + 待处理交互提醒（审批 / 提问 / 计划复核）。设置集中在「设置 → 工具箱」独立页面，不挤在「通用」里。 | DSH toolbox: one-click hot restart plus pending-interaction alerts, under a dedicated settings page.",
+  "version": "2.0.0",
+  "description": "DSH 工具箱：待处理交互提醒（审批 / 提问 / 计划复核）。设置集中在「设置 → 工具箱」独立页面，不挤在「通用」里。 | DSH toolbox: pending-interaction alerts (approval / question / plan review), under a dedicated settings page.",
   "keywords": [
     "dsh",
     "deepseek-harness",
     "dsh-plugin",
-    "restart",
-    "hot-restart",
     "notification",
     "approval"
   ],
@@ -21,7 +19,6 @@
   },
   "files": [
     "lib",
-    "scripts",
     "test",
     "cordis.patch.yml",
     "README.md",
@@ -31,7 +28,7 @@
     "node": ">=20"
   },
   "scripts": {
-    "test": "node test/host.test.mjs && node test/client.test.mjs && node test/engine.test.mjs && node test/supervisor.test.mjs"
+    "test": "node test/client.test.mjs"
   },
   "dsh": {
     "runtime": "host",

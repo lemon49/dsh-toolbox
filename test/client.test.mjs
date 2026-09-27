@@ -3,7 +3,7 @@
  *
  * 四件事必须成立，否则这个插件就是坏的：
  *   1. bundle 以包名注册，并贡献**一个独立设置分区**（不再是「通用」里的一行）；
- *   2. 分区下挂着「服务重启」和「待处理提醒」两个面板；
+ *   2. 分区下只挂着「待处理提醒」一个面板 —— 服务重启已整体移除；
  *   3. 提醒的每一个时机分支都对 —— 弹错了是打扰，漏弹了是白装；
  *   4. 通知的内容**和那条请求本身一致**（哪个工具、什么问题），而不是笼统的
  *      "有人找你" —— 否则用户照样得切回页面才知道要批什么，提醒就白弹了；
@@ -128,8 +128,8 @@ mod.apply(ctx)
 check('registers zh and en dictionaries',
   locales.some(([, langs]) => langs.includes('zh') && langs.includes('en')))
 check('dictionary resolved for assertions', typeof dictionary.notifyWaitApproval === 'string')
-check('dictionary carries both restart-mode lines',
-  typeof dictionary.restartSupervised === 'string' && typeof dictionary.restartDetached === 'string')
+check('dictionary carries no restart copy any more',
+  dictionary.restartSupervised === undefined && dictionary.restartDetached === undefined)
 
 // 关键断言：独立分区，而不是「通用」里的一行。
 const section = slots.find(([options]) => options.name === 'settings.section')
@@ -142,8 +142,8 @@ check('does NOT squeeze into settings.general.item',
   slots.every(([options]) => options.name !== 'settings.general.item'))
 
 const items = slots.filter(([options]) => options.name === 'toolbox.item')
-check('registers exactly two toolbox panels', items.length === 2)
-check('registers the restart panel', items.some(([options]) => options.id === 'restart'))
+check('registers exactly one toolbox panel (restart removed)', items.length === 1)
+check('no restart panel any more', items.some(([options]) => options.id === 'restart') === false)
 check('registers the notify panel', items.some(([options]) => options.id === 'notify'))
 check('subscription established without throwing', statusListener !== null)
 
